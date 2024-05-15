@@ -1,11 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class fake {
     private JFrame frame;
     private Color backgroundColor = new Color(255, 248, 231); // Cream color
-    private Color labelColor = new Color(153, 51, 51); // Maroon color
+    // private Color labelColor = new Color(153, 51, 51); // Maroon color
 
     private JTextArea love;
     private JTextArea health;
@@ -14,7 +13,7 @@ public class fake {
 
     private Random fakeData = new Random();
 
-    private JLabel lLabel, hLabel, wLabel, cLabel;
+    // private JLabel lLabel, hLabel, wLabel, cLabel;
 
     fake() {
         // Set up the frame
@@ -24,44 +23,34 @@ public class fake {
         frame.getContentPane().setBackground(backgroundColor);
         frame.setLayout(new GridLayout(4, 1)); // Arrange JTextAreas in a grid layout
 
-        // Initialize JTextAreas for love, health, wisdom, and career
-        love = createJTextArea();
-        health = createJTextArea();
-        wisdom = createJTextArea();
-        career = createJTextArea();
+        // Initialize JTextAreas for love, health, wisdom, and career with different
+        // background colors
+        love = createJTextArea("Love", fakeData.nextInt(70, 95) + "%");
+        love.setBackground(new Color(245, 222, 179)); // Wheat color
+        health = createJTextArea("Health", fakeData.nextInt(70, 95) + "%");
+        health.setBackground(new Color(176, 224, 230)); // Powder blue color
+        wisdom = createJTextArea("Wisdom", fakeData.nextInt(70, 95) + "%");
+        wisdom.setBackground(new Color(240, 255, 255)); // Azure color
+        career = createJTextArea("Career", fakeData.nextInt(70, 95) + "%");
+        career.setBackground(new Color(255, 228, 225)); // Misty rose color
 
-        // Add JTextAreas to the frame's content pane along with labels
-        addTextAreaWithLabel("Love", love, fakeData.nextInt(70, 95) + "%");
-        addTextAreaWithLabel("Health", health, fakeData.nextInt(70, 95) + "%");
-        addTextAreaWithLabel("Wisdom", wisdom, fakeData.nextInt(70, 95) + "%");
-        addTextAreaWithLabel("Career", career, fakeData.nextInt(70, 95) + "%");
+        // Add JTextAreas to the frame's content pane
+        frame.add(love);
+        frame.add(health);
+        frame.add(wisdom);
+        frame.add(career);
 
         frame.setVisible(true);
     }
 
-    private JTextArea createJTextArea() {
-        JTextArea textArea = new JTextArea();
+    private JTextArea createJTextArea(String labelText, String valueText) {
+        JTextArea textArea = new JTextArea(labelText + ": " + valueText);
         textArea.setEditable(false);
         textArea.setFont(new Font("Arial", Font.PLAIN, 16));
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
+        textArea.setMargin(new Insets(5, 5, 5, 5)); // Add padding
         return textArea;
-    }
-
-    private void addTextAreaWithLabel(String labelText, JTextArea textArea, String valueText) {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(backgroundColor);
-
-        JLabel label = new JLabel(labelText + ": " + valueText);
-        label.setForeground(labelColor);
-        label.setFont(new Font("Arial", Font.BOLD, 20)); // Larger font size
-        panel.add(label, BorderLayout.NORTH);
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add padding
-        panel.add(scrollPane, BorderLayout.CENTER);
-
-        frame.add(panel);
     }
 
     fake(JFrame frame) {
@@ -70,5 +59,13 @@ public class fake {
 
     public static void main(String[] args) {
         new fake();
+    }
+}
+
+class Random {
+    private java.util.Random random = new java.util.Random();
+
+    public int nextInt(int min, int max) {
+        return random.nextInt(max - min) + min;
     }
 }
