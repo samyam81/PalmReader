@@ -4,6 +4,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+// import java.io.FileWriter;
+// import java.io.IOException;
 
 public class PalmReader {
     private JFrame frame;
@@ -64,8 +66,15 @@ public class PalmReader {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     // User selected a file
                     File selectedFile = fileChooser.getSelectedFile();
-                    // You can now use the selected file (e.g., load it as an image)
-                    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+                    // Check if the selected file is an image
+                    String filename = selectedFile.getName();
+                    if (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png")
+                            || filename.endsWith(".gif")) {
+                        new fake();
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Please select a valid image file.", "Invalid File",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
