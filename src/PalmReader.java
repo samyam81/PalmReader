@@ -1,45 +1,48 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class PalmReader {
     private JFrame frame;
     private JLabel label;
+    private JTextArea area = new JTextArea();
 
-    private Color first = new Color(51, 51, 51);
-    private Color second = new Color(153, 51, 51);
+    private Color backgroundColor = new Color(240, 240, 240);
+    private Color labelColor = new Color(153, 51, 51);
+    private Color textColor = new Color(33, 33, 33);
 
     PalmReader() {
 
         frame = new JFrame("Palm Wizard");
         frame.setSize(550, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(first);
+        frame.getContentPane().setBackground(backgroundColor);
+
+        // Set BorderLayout for the frame
+        frame.setLayout(new BorderLayout());
 
         label = new JLabel("Palm Reading");
-        label.setForeground(second);
+        label.setForeground(labelColor);
+        label.setFont(new Font("Arial", Font.BOLD, 24)); // Set font and size
 
-        // Add a ComponentListener to track frame resizing
-        frame.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                positionLabel(); // Adjust label position on frame resize
-            }
-        });
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        topPanel.setBackground(backgroundColor);
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Add padding
+        topPanel.add(label);
 
-        frame.add(label);
+        frame.add(topPanel, BorderLayout.NORTH);
+
+        area.setText("Insert your palm below.");
+        area.setForeground(textColor);
+        area.setEditable(false);
+        area.setFont(new Font("Arial", Font.PLAIN, 18)); // Set font and size
+
+        JScrollPane scrollPane = new JScrollPane(area);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
+
+        // Add JTextArea to the CENTER of BorderLayout
+        frame.add(scrollPane, BorderLayout.CENTER);
+
         frame.setVisible(true);
-
-        positionLabel(); // Initial positioning
-        
-    }
-
-    // Method to position the label in the center of the frame
-    private void positionLabel() {
-        int labelWidth = label.getPreferredSize().width;
-        int labelHeight = label.getPreferredSize().height;
-        int x = (frame.getWidth() - labelWidth) / 2;
-        int y = (frame.getHeight() - labelHeight) / 8;
-        label.setBounds(x, y, labelWidth, labelHeight);
     }
 
     public static void main(String[] args) {
