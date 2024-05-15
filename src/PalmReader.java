@@ -19,7 +19,7 @@ public class PalmReader {
     PalmReader() {
         // Setting up the frame
         frame = new JFrame("Palm Wizard");
-        frame.setSize(550, 500);
+        frame.setSize(550, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(backgroundColor);
 
@@ -70,7 +70,11 @@ public class PalmReader {
                     String filename = selectedFile.getName();
                     if (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png")
                             || filename.endsWith(".gif")) {
-                        new fake();
+                        try{
+                            new fake();
+                        } catch (Exception R) {
+                            R.printStackTrace();
+                        }
                     } else {
                         JOptionPane.showMessageDialog(frame, "Please select a valid image file.", "Invalid File",
                                 JOptionPane.ERROR_MESSAGE);

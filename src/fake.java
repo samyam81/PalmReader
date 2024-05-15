@@ -57,10 +57,10 @@ public class fake {
         this.frame = frame;
     }
 
-    public static void main(String[] args) {
-        new fake();
-    }
-}
+//     public static void main(String[] args) {
+//         new fake();
+//     }
+ }
 
 class Random {
     private java.util.Random random = new java.util.Random();
